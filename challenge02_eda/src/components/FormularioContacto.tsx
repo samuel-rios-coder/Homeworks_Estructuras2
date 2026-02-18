@@ -11,7 +11,7 @@ function FormularioContacto({ onAgregarContacto }: PropsFormulario) {
   const [telefono, setTelefono] = useState('');
   const [error, setError] = useState('');
 
-  // función que se ejecuta al enviar el formulario
+ 
   const enviarFormulario = (evento: React.FormEvent) => {
     evento.preventDefault();
     
