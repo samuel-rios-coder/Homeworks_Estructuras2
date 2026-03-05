@@ -1,0 +1,247 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  color: #000;
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  background: white;
+  padding: 30px 20px;
+  margin-bottom: 20px;
+  border: 1px solid #000;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 14px;
+}
+
+.destacado {
+  background: white;
+  padding: 25px;
+  margin-bottom: 20px;
+  border: 1px solid #000;
+}
+
+.destacado h2 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 20px;
+}
+
+.card-destacado {
+  background: #ccc;
+  color: #000;
+  padding: 25px;
+  border: 1px solid #000;
+  text-align: center;
+}
+
+.card-destacado h3 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.card-destacado p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.card-destacado .estado {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #000;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.nav button {
+  flex: 1;
+  min-width: 200px;
+  padding: 14px 20px;
+  background: white;
+  border: 1px solid #000;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+}
+
+.nav button:hover {
+  background: #e0e0e0;
+}
+
+.nav button.active {
+  background: #000;
+  color: white;
+  border-color: #000;
+}
+
+.main {
+  background: white;
+  padding: 30px;
+  border: 1px solid #000;
+  margin-bottom: 20px;
+}
+
+.main section h2 {
+  margin-bottom: 20px;
+  color: #000;
+  font-size: 24px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+}
+
+.lista {
+  display: grid;
+  gap: 15px;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #000;
+  background: #fff;
+}
+
+.card:hover {
+  background: #f0f0f0;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+.card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #000;
+}
+
+.card .precio {
+  font-weight: bold;
+  color: #000;
+  margin-top: 10px;
+}
+
+.card .estado {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 12px;
+  background: #f0f0f0;
+  border: 1px solid #000;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+}
+
+.btn-alquilar, .btn-devolver {
+  padding: 10px 20px;
+  margin-left: 15px;
+  border: 1px solid #000;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.btn-alquilar {
+  background: #4CAF50;
+  color: white;
+}
+
+.btn-alquilar:hover {
+  background: #45a049;
+}
+
+.btn-devolver {
+  background: #f44336;
+  color: white;
+}
+
+.btn-devolver:hover {
+  background: #da190b;
+}
+
+.vacio {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .nav {
+    flex-direction: column;
+  }
+
+  .nav button {
+    min-width: auto;
+  }
+
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .btn-alquilar, .btn-devolver {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .card-destacado {
+    padding: 15px;
+  }
+
+  .card-destacado h3 {
+    font-size: 20px;
+  }
+
+  .main {
+    padding: 20px;
+  }
+}
+
