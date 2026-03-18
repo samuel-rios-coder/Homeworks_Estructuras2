@@ -1,0 +1,125 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background: #fff;
+  color: #111;
+  padding: 32px 16px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+header {
+  margin-bottom: 32px;
+  border-bottom: 2px solid #111;
+  padding-bottom: 12px;
+}
+
+header h1 {
+  font-size: 1.4rem;
+}
+
+/* Secciones */
+.form-section {
+  margin-bottom: 32px;
+}
+
+.form-section h2,
+.queue-section h2 {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Formulario */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field label {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.field input {
+  padding: 6px 8px;
+  border: 1px solid #bbb;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: #111;
+}
+
+button {
+  padding: 8px;
+  background: #111;
+  color: #fff;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #333;
+}
+
+.error {
+  color: #c00;
+  font-size: 0.8rem;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 2px solid #111;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr.first td {
+  font-weight: 700;
+}
+
+.badge {
+  background: #111;
+  color: #fff;
+  padding: 1px 8px;
+  font-size: 0.8rem;
+}
+
+.empty {
+  color: #888;
+  padding: 12px 0;
+  font-size: 0.9rem;
+}
