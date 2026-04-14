@@ -1,0 +1,108 @@
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+.section,
+.tree-card {
+  margin-bottom: 18px;
+  padding: 18px;
+  border: 1px solid #d8d3ca;
+  border-radius: 14px;
+  background: #fffdf9;
+}
+
+.section p,
+.tree-card p {
+  margin: 8px 0;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 260px;
+  padding: 10px 12px;
+  border: 1px solid #c9c1b5;
+  border-radius: 10px;
+  font: inherit;
+  background: #ffffff;
+}
+
+.search-result {
+  margin-top: 12px;
+}
+
+.search-result.found {
+  color: #146c2e;
+}
+
+.search-result.not-found {
+  color: #9f2020;
+}
+
+.tree-card {
+  overflow: hidden;
+}
+
+.tree-wrapper {
+  max-width: 100%;
+  margin: 12px auto 0;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(241, 238, 230, 0.85)),
+    #f6eee2;
+}
+
+.tree-wrapper svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tree-wrapper .rd3t-link {
+  stroke: #d97a28;
+  stroke-width: 2px;
+}
+
+.tree-node-root circle,
+.tree-node-branch circle,
+.tree-node-leaf circle {
+  r: 22;
+  stroke-width: 2px;
+}
+
+.tree-node-root circle {
+  fill: #e85f2f;
+  stroke: #9f3918;
+}
+
+.tree-node-branch circle {
+  fill: #f2b84b;
+  stroke: #a67313;
+}
+
+.tree-node-leaf circle {
+  fill: #2d7dd2;
+  stroke: #174d83;
+}
+
+.tree-wrapper .rd3t-label__title {
+  fill: #111111;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.tree-wrapper .rd3t-label__attributes {
+  fill: #57493f;
+  font-size: 11px;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 16px 10px 28px;
+  }
+
+  .section,
+  .tree-card {
+    padding: 14px;
+  }
+}
