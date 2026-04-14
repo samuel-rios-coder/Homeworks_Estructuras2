@@ -1,0 +1,202 @@
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  background: #f5f6f8;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sidebar {
+  padding: 32px 20px;
+  background: #ffffff;
+  color: #1f2937;
+  border-right: 1px solid #d9dde3;
+}
+
+.sidebar-header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.sidebar-label,
+.eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.sidebar-label {
+  color: #2563eb;
+  margin-bottom: 4px;
+}
+
+.sidebar h2 {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+}
+
+.sidebar p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.menu-list,
+.submenu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-list {
+  max-width: 240px;
+  margin: 0 auto;
+}
+
+.submenu-list {
+  margin-top: 4px;
+}
+
+.menu-row {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 6px;
+  border-radius: 0;
+}
+
+.menu-row.active {
+  background: #e8f0ff;
+  border: 1px solid #bfd3ff;
+}
+
+.arrow-button,
+.arrow-placeholder {
+  width: 32px;
+  flex: 0 0 32px;
+}
+
+.arrow-button {
+  border: 1px solid transparent;
+  background: #ffffff;
+  color: #4b5563;
+  border-radius: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.arrow-button.expanded {
+  transform: rotate(90deg);
+}
+
+.arrow-placeholder {
+  display: inline-block;
+}
+
+.menu-button {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: #ffffff;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.menu-button span,
+.menu-button small {
+  display: block;
+}
+
+.menu-button span {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.menu-button small {
+  margin-top: 2px;
+  color: #6b7280;
+}
+
+.menu-button:hover {
+  background: #f3f4f6;
+}
+
+.menu-row.active .menu-button,
+.menu-row.active .arrow-button {
+  background: #e8f0ff;
+}
+
+.menu-row.active .menu-button {
+  color: #1d4ed8;
+}
+
+.menu-row.active .menu-button small {
+  color: #2563eb;
+}
+
+.content-panel {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.content-summary,
+.content-card {
+  width: 100%;
+  max-width: 760px;
+  border-radius: 0;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #d9dde3;
+  box-shadow: none;
+}
+
+.content-summary h3,
+.content-card h1 {
+  margin: 8px 0 10px;
+  color: #111827;
+}
+
+.content-card p,
+.content-summary p {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.eyebrow {
+  color: #2563eb;
+}
+
+code {
+  padding: 4px 8px;
+  border-radius: 0;
+  background: #eff1f4;
+  color: #374151;
+}
+
+@media (max-width: 840px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+
+  .sidebar {
+    border-right: 0;
+    border-bottom: 1px solid #d9dde3;
+  }
+
+  .menu-list {
+    max-width: 100%;
+  }
+
+  .content-panel {
+    padding: 20px;
+  }
+}
