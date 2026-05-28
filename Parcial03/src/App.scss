@@ -1,0 +1,528 @@
+// paleta de colores del dashboard
+$bg:         #111118;
+$surface:    #1c1c28;
+$surface-2:  #252535;
+$surface-3:  #2f2f42;
+$accent:     #5b6cf9;
+$text:       #e8e8f0;
+$text-muted: #9090a8;
+$text-dim:   #55556a;
+$border:     rgba(255, 255, 255, 0.07);
+$verde:      #4caf7d;
+$rojo:       #e05c5c;
+
+$r-sm:   4px;
+$r-md:   8px;
+$r-lg:   12px;
+$r-full: 999px;
+$t:      all 0.18s ease;
+
+// tarjeta base: fondo oscuro con borde sutil y esquinas redondeadas
+@mixin card {
+  background: $surface;
+  border-radius: $r-lg;
+  padding: 20px;
+  border: 1px solid $border;
+}
+
+// fila flexbox con gap variable, el valor por defecto es 8px
+@mixin row($gap: 8) {
+  display: flex;
+  align-items: center;
+  gap: #{$gap}px;
+}
+
+// botón reutilizable: recibe color de fondo ($bg) y color del texto ($fg)
+@mixin btn($bg, $fg) {
+  background: $bg;
+  color: $fg;
+  border: none;
+  border-radius: $r-md;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $t;
+  font-family: inherit;
+
+  &:hover  { opacity: 0.85; }
+  &:active { opacity: 0.7; transform: scale(0.98); }
+}
+
+// estilos base compartidos entre el input de búsqueda, el select y los campos del formulario
+// se aplican con @extend para evitar duplicar las mismas reglas en cada componente
+%input-base {
+  width: 100%;
+  background: $surface-2;
+  border: 1px solid $border;
+  border-radius: $r-md;
+  color: $text;
+  font-size: 14px;
+  outline: none;
+  transition: $t;
+  box-sizing: border-box;
+  font-family: inherit;
+
+  &::placeholder { color: $text-dim; }
+  &:focus { border-color: $accent; }
+}
+
+// aparece desde arriba con un leve desplazamiento, se aplica a dropdowns y formularios
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $bg;
+  color: $text;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+// barra superior con logo y etiqueta de entrega
+.header {
+  padding: 14px 28px;
+  @include row(0);
+  justify-content: space-between;
+  border-bottom: 1px solid $border;
+  background: $surface;
+
+  &__logo {
+    @include row(8);
+
+    &-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: $text;
+    }
+  }
+
+  &__badge {
+    font-size: 12px;
+    color: $text-muted;
+    background: $surface-2;
+    padding: 4px 12px;
+    border-radius: $r-full;
+    border: 1px solid $border;
+  }
+}
+
+// cuadrícula principal: tres columnas en desktop, se colapsa en pantallas pequeñas
+.main {
+  flex: 1;
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+
+  @media (max-width: 1050px) { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 660px)  { grid-template-columns: 1fr; padding: 14px; }
+}
+
+.panel {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  &__head {
+    padding-bottom: 14px;
+    border-bottom: 1px solid $border;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: $text;
+  }
+}
+
+// panel del buscador (trie)
+.search {
+  // posición relativa necesaria para ubicar el ícono de lupa dentro del input
+  &__wrap { position: relative; }
+
+  &__icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-muted;
+    font-size: 15px;
+    pointer-events: none;
+  }
+
+  &__input {
+    @extend %input-base;
+    padding: 10px 14px 10px 38px;
+    border-radius: $r-full;
+  }
+
+  // lista de sugerencias que aparece debajo del input mientras se escribe
+  &__dropdown {
+    background: $surface-2;
+    border: 1px solid $border;
+    border-radius: $r-md;
+    overflow: hidden;
+    animation: fadeDown 0.15s ease;
+    margin-top: 4px;
+
+    &-item {
+      @include row(10);
+      padding: 9px 14px;
+      cursor: pointer;
+      transition: $t;
+
+      &:not(:last-child) { border-bottom: 1px solid $border; }
+      &:hover { background: $surface-3; }
+
+      &-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: $accent;
+        flex-shrink: 0;
+      }
+
+      &-title  { font-size: 13px; font-weight: 600; color: $text; }
+      &-artist { font-size: 12px; color: $text-muted; margin-top: 1px; }
+    }
+
+    &-empty {
+      padding: 12px 14px;
+      font-size: 13px;
+      color: $text-muted;
+      text-align: center;
+    }
+  }
+
+  // muestra si la búsqueda fue exacta o no, con colores distintos para cada caso
+  &__result {
+    @include row(10);
+    border-radius: $r-md;
+    padding: 10px 14px;
+    font-size: 13px;
+    animation: fadeDown 0.15s ease;
+
+    &--found {
+      background: rgba($verde, 0.08);
+      border: 1px solid rgba($verde, 0.2);
+      color: $verde;
+    }
+
+    &--miss {
+      background: rgba($rojo, 0.07);
+      border: 1px solid rgba($rojo, 0.2);
+      color: $rojo;
+    }
+
+    &-name { font-weight: 600; color: $text; font-size: 13px; }
+    &-meta { font-size: 11px; color: $text-muted; margin-top: 2px; }
+  }
+}
+
+// formulario que aparece al presionar "Insertar canción"
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: fadeDown 0.15s ease;
+  padding: 14px;
+  background: $surface-2;
+  border-radius: $r-md;
+  border: 1px solid $border;
+
+  &__field {
+    @extend %input-base;
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: $r-sm;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2px;
+  }
+}
+
+.btn {
+  &--primary { @include btn($accent, #fff); }
+
+  &--ghost {
+    @include btn(transparent, $text-muted);
+    border: 1px solid $border;
+    &:hover { color: $text; background: $surface-2; opacity: 1; }
+  }
+
+  &--sm { font-size: 12px; padding: 5px 12px; }
+}
+
+// panel del ranking (max heap)
+.rankings {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__item {
+    @include row(8);
+    padding: 9px 10px;
+    background: $surface-2;
+    border-radius: $r-md;
+    border: 1px solid $border;
+    transition: $t;
+    animation: fadeDown 0.15s ease;
+
+    &:hover { background: $surface-3; }
+  }
+
+  // @for genera las clases de posición del 1 al 5 sin repetir el mismo bloque cinco veces
+  &__rank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: $r-sm;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+
+    @for $n from 1 through 5 {
+      &--#{$n} {
+        @if      $n == 1 { background: #c9a227; color: #000; }
+        @else if $n == 2 { background: #8c9faa; color: #000; }
+        @else if $n == 3 { background: #9c6b3c; color: #fff; }
+        @else            { background: $surface-3; color: $text-muted; }
+      }
+    }
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+
+    &-title  { font-size: 13px; font-weight: 600; color: $text; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    &-artist { font-size: 11px; color: $text-muted; }
+  }
+
+  // barra proporcional: su ancho se calcula en el JSX según (plays / maxPlays) * 100
+  &__bar {
+    width: 50px;
+    height: 3px;
+    background: $surface-3;
+    border-radius: $r-full;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    &-fill {
+      height: 100%;
+      background: $accent;
+      border-radius: $r-full;
+      transition: width 0.4s ease;
+    }
+  }
+
+  &__plays {
+    font-size: 11px;
+    color: $text-muted;
+    min-width: 38px;
+    text-align: right;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__add-btn {
+    @include btn($surface-3, $text-muted);
+    font-size: 10px;
+    padding: 4px 9px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 1px solid $border;
+
+    &:hover { color: $text; opacity: 1; }
+  }
+}
+
+// panel de recomendaciones (grafo)
+.graph {
+  &__select {
+    position: relative;
+
+    select {
+      @extend %input-base;
+      padding: 9px 32px 9px 14px;
+      border-radius: $r-md;
+      cursor: pointer;
+      appearance: none; // oculta la flecha nativa del navegador
+
+      option { background: $surface-2; }
+    }
+
+    // flecha personalizada posicionada sobre el select
+    &::after {
+      content: '▾';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-muted;
+      pointer-events: none;
+      font-size: 12px;
+    }
+  }
+
+  // nodo central: muestra la canción seleccionada y cuántas conexiones tiene
+  &__node {
+    padding: 14px 16px;
+    border-radius: $r-md;
+    background: $surface-2;
+    border: 1px solid rgba($accent, 0.3);
+
+    &-title  { font-size: 15px; font-weight: 700; color: $text; }
+    &-artist { font-size: 12px; color: $text-muted; margin-top: 3px; }
+    &-links  { font-size: 11px; color: $accent; margin-top: 8px; font-weight: 600; }
+  }
+
+  // visualización SVG: nodo central + aristas + nodos relacionados
+  &__svg {
+    width: 100%;
+    aspect-ratio: 1;
+    background: $surface-2;
+    border-radius: $r-md;
+    border: 1px solid $border;
+    display: block;
+
+    &-edge {
+      stroke: rgba($accent, 0.2);
+      stroke-width: 1.5;
+    }
+
+    &-nodo {
+      cursor: pointer;
+
+      circle {
+        fill: $surface-3;
+        stroke: rgba($accent, 0.25);
+        stroke-width: 1;
+        transition: $t;
+      }
+
+      &:hover circle {
+        fill: rgba($accent, 0.15);
+        stroke: rgba($accent, 0.55);
+      }
+    }
+
+    &-centro circle {
+      fill: $accent;
+    }
+
+    &-titulo {
+      font-size: 9px;
+      font-weight: 700;
+      text-anchor: middle;
+      fill: $text;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      pointer-events: none;
+    }
+
+    &-genero {
+      font-size: 7px;
+      text-anchor: middle;
+      fill: $text-muted;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      pointer-events: none;
+    }
+
+    // el texto dentro del nodo central va en blanco
+    &-centro &-titulo { fill: #fff; }
+    &-centro &-genero { fill: rgba(255, 255, 255, 0.8); }
+  }
+
+  // vecinos directos del nodo seleccionado en el grafo
+  &__related {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &-label {
+      font-size: 11px;
+      color: $text-dim;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    &-item {
+      @include row(10);
+      padding: 9px 12px;
+      background: $surface-2;
+      border-radius: $r-md;
+      border: 1px solid $border;
+      cursor: pointer;
+      transition: $t;
+      animation: fadeDown 0.12s ease;
+
+      &:hover { background: $surface-3; border-color: rgba($accent, 0.25); }
+
+      // línea corta que representa visualmente la arista del grafo
+      &-bar {
+        width: 16px;
+        height: 2px;
+        background: $accent;
+        border-radius: $r-full;
+        flex-shrink: 0;
+        opacity: 0.7;
+      }
+
+      &-info {
+        flex: 1;
+        min-width: 0;
+
+        &-title  { font-size: 13px; font-weight: 600; color: $text; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        &-artist { font-size: 11px; color: $text-muted; }
+      }
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    color: $text-dim;
+    font-size: 13px;
+    padding: 16px 0;
+  }
+}
+
+// chip pequeño que muestra el género de la canción
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: $r-full;
+  font-size: 10px;
+  font-weight: 600;
+  background: $surface-3;
+  color: $text-muted;
+  border: 1px solid $border;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  // versión con color de acento, usada en el panel de recomendaciones
+  &--accent {
+    background: rgba($accent, 0.12);
+    color: $accent;
+    border-color: rgba($accent, 0.25);
+  }
+}
